@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:startup_namer/main.dart';
 
 class Pertemuan1 extends StatefulWidget {
   const Pertemuan1({super.key, required this.title});
@@ -50,7 +52,7 @@ class _Pertemuan1State extends State<Pertemuan1> {
                   hintText: "Teks yang akan dimasukkan",
                   border: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(5)
-                  )
+                  ),
               ),
             ),
             ElevatedButton(onPressed: () {}, child: Text(
@@ -59,7 +61,21 @@ class _Pertemuan1State extends State<Pertemuan1> {
                   color: Colors.white
               ),
             ),
-          ],
+            ),
+            ElevatedButton(
+              child: Text(
+                  "Logout"
+              ),
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                await pref.setInt("is_login", 0);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page",)),
+                );
+              },
+            ),
+    ],
         ),
       ),
       // floatingActionButton: FloatingActionButton(

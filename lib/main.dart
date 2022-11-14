@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:startup_namer/pertemuan1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,21 +17,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Pertemuan1(title: 'Flutter Demo Home Page Pertemuan 1'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page Pertemuan 1'),
     );
   }
 }
 
-class Pertemuan1 extends StatefulWidget {
-  const Pertemuan1({super.key, required this.title});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<Pertemuan1> createState() => _Pertemuan1State();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _Pertemuan1State extends State<Pertemuan1> {
+class _MyHomePageState extends State<MyHomePage> {
   int _counter = 2;
 
   void _incrementCounter() {
@@ -37,6 +39,23 @@ class _Pertemuan1State extends State<Pertemuan1> {
 
       _counter++;
     });
+  }
+
+  void navigateLogin()async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    int? isLogin = pref.getInt("is_login");
+    if(isLogin == 1){
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Pertemuan1(title: "Pertemuan 1")),
+      );
+    }
+  }
+
+
+  @override
+  void initState() {
+    navigateLogin();
   }
 
   @override
@@ -74,12 +93,19 @@ class _Pertemuan1State extends State<Pertemuan1> {
                   )
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text(
-              "Submit",
-              style: TextStyle(
-                  color: Colors.white
+            ElevatedButton(
+                child: Text(
+              "Login"
               ),
-            ))
+              onPressed: () async {
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  await pref.setInt("is_login", 1);
+                  Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pertemuan1(title: "Pertemuan 1",)),
+                );
+              },
+            )
           ],
         ),
       ),
