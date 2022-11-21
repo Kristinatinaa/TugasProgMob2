@@ -69,10 +69,10 @@ class _Pertemuan1State extends State<Pertemuan1> {
               onPressed: () async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 await pref.setInt("is_login", 0);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page",)),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const MyHomePage(title: "Home Page",)),
+                // );
               },
             ),
     ],
