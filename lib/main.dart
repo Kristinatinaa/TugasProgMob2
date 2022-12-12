@@ -1,12 +1,14 @@
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:startup_namer/home.dart';
 import 'package:startup_namer/pertemuan1.dart';
 import 'package:startup_namer/splashscreen.dart';
+import 'splashscreen.dart';
 
 void main(){
-  runApp(new MaterialApp(
-    home: Home ()
+  runApp(const MaterialApp(
+    home: Splashscreen (title: 'CRUD')
 ));
 }
 // class MyApp extends StatefulWidget {
